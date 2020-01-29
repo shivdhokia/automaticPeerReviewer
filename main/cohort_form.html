@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css" media="screen" title="no title" lang="en">
+    <meta charset="utf-8">
+    <title>Cohort Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+<body>
+    <h1>Create Cohort</h1>
+    <div class='cohort_form'>
+        <form method="post">
+              <label>Title:</label>
+              <input name="submitted-title" autocomplete="title">
+              </label>
+              <fieldset>
+                <legend>Criteria</legend>
+                <input type="button" value="Create New">
+                <input type="button" value="Use Existing">
+              </fieldset>
+              <label>Peers:</label>
+              <input name="submitted-peers" autocomplete="peers">
+              </label>
+              <label>Submission:</label>
+              <input name="taken-submission" autocomplete="submission">
+              </label>
+              <label for="date-expiry">Expiry Date</label>
+              <input type="date" name="date-expiry" id="date-expiry">
+              <label for="date-start">Start Date</label>
+              <input type="date" name="date-start" id="date-start">
+              <input type="submit" value="Create">
+              <input type="button" value="Cancel">
+        </form>
+    </div>
+</body>
+
+</html>
