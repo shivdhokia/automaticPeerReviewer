@@ -10,7 +10,6 @@ body {
     margin: auto;
     max-width: 80em;
     min-width: 50
-    
 
 }
 .cohort_form {
@@ -105,4 +104,15 @@ main {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
+}
+
+.addIcon {
+  position: relative;
+  /* Adjust these values accordingly */
+  /* top: 5px; */
+  left: 40vw;
+}
+
+.addIcon:hover{
+  background-color: pink;
 }

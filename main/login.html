@@ -3,9 +3,10 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="style.css" media="screen" title="no title" lang="en">
   <meta charset="utf-8">
-  <title>AutomaticPeerReviewer</title>
+  <title>Automatic Peer Reviewer</title>
 
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <script src="script.js"></script>
@@ -81,14 +82,16 @@
         </ul>
       </div>
       <div id='created'>
-        <div>Cohort
-          <button type="button" class="collapsible">Cohort</button>
+        <div id="cohortList">Cohort
+          <i id ="addCohort"class="material-icons addIcon">add_circle</i>
+          <button type="button" class="collapsible">Cohort 1</button>
           <div class="content">
             <p>Lorem ipsum...</p>
           </div>
         </div>
-        <div>Criteria
-          <button type="button" class="collapsible">Criteria</button>
+        <div id="criteriaList">Criteria
+          <i id="addCriteria" class="material-icons addIcon">add_circle</i> 
+          <button type="button" class="collapsible">Criteria 2</button>
           <div class="content">
             <p>Lorem ipsum...</p>
           </div>
@@ -121,7 +124,7 @@
           <label for="date-start">Start Date</label>
           <input type="date" name="date-start" id="date-start">
           <input type="submit" value="Create">
-          <input type="button" value="Cancel">
+          <input id="cancelCohort" type="button" value="Cancel">
         </form>
       </div>
     </div>
@@ -158,7 +161,7 @@
           </fieldset>
 
           <input type="submit" value="Create">
-          <input type="button" value="Cancel">
+          <input id="cancelCriteria" type="button" value="Cancel">
         </form>
       </div>
     </div>
