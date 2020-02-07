@@ -1,5 +1,14 @@
 window.onload = function () {
 
+    function loadTemplate(newPage) {
+        const container = document.body.lastElementChild;
+        document.body.removeChild(container);
+        let t = document.querySelector(newPage);
+        let clone = document.importNode(t.content, true);
+        document.body.appendChild(clone);
+    }
+
+    // allows for collapsible divs.
     function collapsible() {
         var coll = document.getElementsByClassName("collapsible");
         var i;
@@ -15,25 +24,6 @@ window.onload = function () {
                 }
             });
         }
-    }
-
-    function loadTemplate(newPage) {
-        const container = document.body.lastElementChild;
-        document.body.removeChild(container);
-        let t = document.querySelector(newPage);
-        let clone = document.importNode(t.content, true);
-        document.body.appendChild(clone);
-    }
-
-    function loadActive(){
-        loadTemplate('#active-page');
-        collapsible();
-    }
-
-    function loadCreated() {
-        loadTemplate('#created-page');
-        collapsible();
-
     }
 
     function loadFormButtons() {
@@ -53,23 +43,49 @@ window.onload = function () {
         }
     }
 
+    function loadActive(){
+        loadTemplate('#active-page');
+        collapsible();
+
+        document.getElementById('createdButton').onclick = function () {
+            loadCreated();
+        }
+
+        document.getElementById('activeButton').onclick = function(){
+            // do nothing
+            console.log("did nothing in active screen");
+            
+        }
+
+    }
+
+    function loadCreated() {
+        loadTemplate('#created-page');
+        collapsible();
+        loadFormButtons();
+        
+        document.getElementById('createdButton').onclick = function(){
+            // do nothing
+            console.log("did nothing in created screen");
+            
+        }
+
+        document.getElementById('activeButton').onclick = function(){
+            loadActive();
+
+        }
+
+    }
 
 
+    // loads the login page
     let t = document.querySelector('#login-page');
     let clone = document.importNode(t.content, true);
     document.body.appendChild(clone);
 
+    // when login button clicked takes you to the active page.
     document.getElementById('loginBtn').onclick = function () {
-
         loadActive();
-
-
-        document.getElementById('createdButton').onclick = function () {
-            loadCreated();
-            collapsible();
-            loadFormButtons();
-
-        }
 
     }
 
