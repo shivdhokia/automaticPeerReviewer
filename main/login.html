@@ -83,14 +83,14 @@
       </div>
       <div id='created'>
         <div id="cohortList">Cohort
-          <i id ="addCohort"class="material-icons addIcon">add_circle</i>
+          <i id="addCohort" class="material-icons addIcon">add_circle</i>
           <button type="button" class="collapsible">Cohort 1</button>
           <div class="content">
             <p>Lorem ipsum...</p>
           </div>
         </div>
         <div id="criteriaList">Criteria
-          <i id="addCriteria" class="material-icons addIcon">add_circle</i> 
+          <i id="addCriteria" class="material-icons addIcon">add_circle</i>
           <button type="button" class="collapsible">Criteria 2</button>
           <div class="content">
             <p>Lorem ipsum...</p>
@@ -141,22 +141,18 @@
             <legend>Criterion</legend>
             <label for="Criterion Title"></label>
             <input type="text" name="Criterion Title" id="critTitle">
-            <fieldset>
-              <legend>Statments</legend>
-              <label for="Statemenet">Statement</label>
-              <input type="text" name="Statment">
-              <label for="Score">Score</label>
-              <input type="text" name="Score">
+            <fieldset id="statementContainer">
+              <legend>Statments
+                <i id="addStatement" class="material-icons addIcon">add_circle</i>
+              </legend>
 
-              <label for="Statemenet">Statement</label>
-              <input type="text" name="Statment">
-              <label for="Score">Score</label>
-              <input type="text" name="Score">
+              <div id="statementDiv">
+                <label for="Statemenet">Statement</label>
+                <input type="text" name="Statment">
+                <label for="Score">Score</label>
+                <input type="text" name="Score">
+              </div>
 
-              <label for="Statemenet">Statement</label>
-              <input type="text" name="Statment">
-              <label for="Score">Score</label>
-              <input type="text" name="Score">
             </fieldset>
           </fieldset>
 

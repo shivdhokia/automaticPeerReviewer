@@ -30,20 +30,38 @@ window.onload = function () {
         document.getElementById('addCohort').onclick = function () {
 
             loadTemplate('#cohort_form_page');
-            document.getElementById('cancelCohort').onclick = function(){
+            document.getElementById('cancelCohort').onclick = function () {
                 loadCreated();
             }
+
+
         }
 
         document.getElementById('addCriteria').onclick = function () {
             loadTemplate('#criteriaForm');
-            document.getElementById('cancelCriteria').onclick = function() {
+            let count = 1;
+            document.getElementById('cancelCriteria').onclick = function () {
                 loadCreated();
             }
+
+            document.getElementById('addStatement').onclick = function () {
+                console.log("button clicked to add statement");
+                
+                // Get the last <li> element ("Milk") of <ul> with id="myList2"
+                var itm = document.getElementById("statementDiv");
+
+                // Copy the <li> element and its child nodes
+                var cln = itm.cloneNode(true);
+                cln.id = "statement"+count;
+                // Append the cloned <li> element to <ul> with id="myList1"
+                document.getElementById("statementContainer").appendChild(cln);
+                count ++;
+            }
+
         }
     }
 
-    function loadActive(){
+    function loadActive() {
         loadTemplate('#active-page');
         collapsible();
 
@@ -51,32 +69,26 @@ window.onload = function () {
             loadCreated();
         }
 
-        document.getElementById('activeButton').onclick = function(){
+        document.getElementById('activeButton').onclick = function () {
             // do nothing
             console.log("did nothing in active screen");
-            
         }
-
     }
 
     function loadCreated() {
         loadTemplate('#created-page');
         collapsible();
         loadFormButtons();
-        
-        document.getElementById('createdButton').onclick = function(){
+
+        document.getElementById('createdButton').onclick = function () {
             // do nothing
             console.log("did nothing in created screen");
-            
         }
 
-        document.getElementById('activeButton').onclick = function(){
+        document.getElementById('activeButton').onclick = function () {
             loadActive();
-
         }
-
     }
-
 
     // loads the login page
     let t = document.querySelector('#login-page');
@@ -86,7 +98,6 @@ window.onload = function () {
     // when login button clicked takes you to the active page.
     document.getElementById('loginBtn').onclick = function () {
         loadActive();
-
     }
 
 }
