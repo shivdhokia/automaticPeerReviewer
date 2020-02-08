@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="./css/style.css" media="screen" title="no title" lang="en">
+  <meta charset="utf-8">
+  <title>Automatic Peer Reviewer</title>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <script src="./js/script.js"></script>
+</head>
+
+<body>
+
+  <!-- state the naming convention you used in report. -->
+  <template id="login-page">
+    <div id="loginContainer">
+      <h1>Automatic Peer Reviewer</h1>
+      <div class='login-container'>
+        <div>
+          <label for="uname">Username: </label>
+          <input type="text" id="uname" name="name">
+        </div>
+        <div>
+          <label for="pname">Password: </label>
+          <input type="text" id="pname" name="pass">
+        </div>
+        <div>
+          <button id="loginBtn">Login</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="active-page">
+    <div id="activeContainer">
+      <h1>Active Reviews</h1>
+      <div class='menu-container'>
+        <ul>
+          <li>
+            <a id="activeButton" href="#">Active</a>
+          </li>
+          <li>
+            <a id="createdButton" href="#">Created</a>
+          </li>
+        </ul>
+      </div>
+      <div id='active'>
+        <div>On-going
+          <button type="button" class="collapsible">Active 1</button>
+          <div class="content">
+            <p>Lorem ipsum...</p>
+          </div>
+        </div>
+        <div>Expired
+          <button type="button" class="collapsible">Expired 1</button>
+          <div class="content">
+            <p>Lorem ipsum...</p>
+          </div>
+          <button type="button" class="collapsible">Expired 2</button>
+          <div class="content">
+            <p>Lorem ipsum...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="created-page">
+    <div id="createContainer">
+      <h1>Created Reviews</h1>
+      <div class='menu-container'>
+        <ul>
+          <li>
+            <a id="activeButton" href="#">Active</a>
+          </li>
+          <li>
+            <a id="createdButton" href="#">Created</a>
+          </li>
+        </ul>
+      </div>
+      <div id='created'>
+        <div id="cohortList">Cohort
+          <i id="addCohort" class="material-icons addIcon">add_circle</i>
+          <button type="button" class="collapsible">Cohort 1</button>
+          <div class="content">
+            <p>Lorem ipsum...</p>
+          </div>
+        </div>
+        <div id="criteriaList">Criteria
+          <i id="addCriteria" class="material-icons addIcon">add_circle</i>
+          <button type="button" class="collapsible">Criteria 2</button>
+          <div class="content">
+            <p>Lorem ipsum...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="cohort_form_page">
+    <div id="cohortFormContainer">
+      <h1>Create Cohort</h1>
+      <div class='cohort_form'>
+        <form method="post">
+          <label>Title:</label>
+          <input name="submitted-title" autocomplete="title">
+          </label>
+          <fieldset>
+            <legend>Criteria</legend>
+            <input type="button" value="Create New">
+            <input type="button" value="Use Existing">
+          </fieldset>
+          <label>Peers:</label>
+          <input name="submitted-peers" autocomplete="peers">
+          </label>
+          <label>Submission:</label>
+          <input name="taken-submission" autocomplete="submission">
+          </label>
+          <label for="date-expiry">Expiry Date</label>
+          <input type="date" name="date-expiry" id="date-expiry">
+          <label for="date-start">Start Date</label>
+          <input type="date" name="date-start" id="date-start">
+          <input type="submit" value="Create">
+          <input id="cancelCohort" type="button" value="Cancel">
+        </form>
+      </div>
+    </div>
+  </template>
+
+  <template id="criteriaForm">
+    <div id="criteriaFormContainer">
+      <div class='criteria_form'>
+        <form method="post">
+          <label>Title:</label>
+          <input name="submitted-title" autocomplete="title">
+          </label>
+          <fieldset>
+            <legend>Criterion</legend>
+            <label for="Criterion Title"></label>
+            <input type="text" name="Criterion Title" id="critTitle">
+            <fieldset id="statementContainer">
+              <legend>Statments
+                <i id="addStatement" class="material-icons addIcon">add_circle</i>
+              </legend>
+
+              <div id="statementDiv">
+                <label for="Statemenet">Statement</label>
+                <input type="text" name="Statment">
+                <label for="Score">Score</label>
+                <input type="text" name="Score">
+              </div>
+
+            </fieldset>
+          </fieldset>
+
+          <input type="submit" value="Create">
+          <input id="cancelCriteria" type="button" value="Cancel">
+        </form>
+      </div>
+    </div>
+  </template>
+</body>
+
+</html>

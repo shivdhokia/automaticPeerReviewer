@@ -1,0 +1,27 @@
+{
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "test project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo shiv",
+    "devstart": "nodemon ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivdhokia/project1.git"
+  },
+  "author": "Shiv Dhokia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivdhokia/project1/issues"
+  },
+  "homepage": "https://github.com/shivdhokia/project1#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "gulp": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
