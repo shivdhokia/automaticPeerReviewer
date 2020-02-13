@@ -73,6 +73,7 @@ window.onload = function () {
         document.getElementById('addCriteria').onclick = function () {
             loadTemplate('#criteriaForm');
             let count = 1;
+            let count2 =1;
             document.getElementById('cancelCriteria').onclick = function () {
                 loadCreated();
             }
@@ -91,6 +92,15 @@ window.onload = function () {
                 count ++;
             }
 
+            document.getElementById('addCriterion').onclick = function () {
+                let item = document.getElementById("criterionContainer");
+
+                let clone = item.cloneNode(true);
+                clone.id = "criterion"+count2;
+                document.getElementById("criteria_form").appendChild(clone);
+                count2++;
+            }
+
         }
     }
 
@@ -106,6 +116,32 @@ window.onload = function () {
             // do nothing
             console.log("did nothing in active screen");
         }
+
+        document.getElementById('testButton').onclick = function () {
+            loadPeerReview();
+
+
+        }
+    }
+
+    function loadPeerReview() {
+        loadTemplate('#testPeerReview');
+
+        document.getElementsByClassName('statements').onclick = function () {
+            let statements = this.parentNode.children;
+
+            for (let statement of statements) {
+                if (statement.classList.contains('statement.selected')){
+                    statement.classList.remove('statement.selected');
+                    console.log("removed class");
+                    
+                }
+            }
+
+            this.classList.add('statement.selected');
+            console.log("added class");
+        }
+
     }
 
     function loadCreated() {
@@ -132,6 +168,8 @@ window.onload = function () {
     document.getElementById('loginBtn').onclick = function () {
         loadActive();
     }
+
+
 
 }
 
