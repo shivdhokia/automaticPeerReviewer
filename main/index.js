@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -42,6 +41,3 @@ app.get('/', (req, res) => {
 
 app.listen(config.serverport);
 console.log('Running on port 8000...');
-
-
-
