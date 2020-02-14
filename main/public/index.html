@@ -51,17 +51,18 @@
         <div>On-going
           <button type="button" class="collapsible">Active 1</button>
           <div class="content">
-            <p>Lorem ipsum...</p>
+            <p>Lists of peers to review, their submissions and a button to the review for each one.</p>
+            <button id="testButton">Peer Test</button>
           </div>
         </div>
         <div>Expired
           <button type="button" class="collapsible">Expired 1</button>
           <div class="content">
-            <p>Lorem ipsum...</p>
+            <p>Results will be here</p>
           </div>
           <button type="button" class="collapsible">Expired 2</button>
           <div class="content">
-            <p>Lorem ipsum...</p>
+            <p>Results will be here</p>
           </div>
         </div>
       </div>
@@ -132,14 +133,16 @@
 
   <template id="criteriaForm">
     <div id="criteriaFormContainer">
-      <div class='criteria_form'>
+      <div id="criteria_form">
         <form method="post">
           <label>Title:</label>
           <input name="submitted-title" autocomplete="title">
           </label>
-          <fieldset>
-            <legend>Criterion</legend>
-            <label for="Criterion Title"></label>
+          <i id="addCriterion" class="material-icons addIcon">add_circle</i>
+          <fieldset id="criterionContainer">
+            <legend>Criterion
+            </legend>
+            <label for="Criterion Title">Title</label>
             <input type="text" name="Criterion Title" id="critTitle">
             <fieldset id="statementContainer">
               <legend>Statments
@@ -162,6 +165,53 @@
       </div>
     </div>
   </template>
+
+  <template id="testPeerReview">
+    <div id="peerReviewContainer">
+      <h1>Peer Review 1</h1>
+      <div>Criterion 1
+        <fieldset id="statments"> 
+          <input type="radio" id="male" name="1" value="blah">
+          <label for="male">Male</label><br>
+          <input type="radio" id="female" name="1" value="blahblah">
+          <label for="female">Female</label><br>
+          <input type="radio" id="other" name="1" value="other">
+          <label for="other">Other</label>
+        </fieldset>
+      </div>
+      <div>Criterion 2
+        <fieldset id="statments"> 
+          <input type="radio" id="male" name="2" value="blah">
+          <label for="male">Male</label><br>
+          <input type="radio" id="female" name="2" value="blahblah">
+          <label for="female">Female</label><br>
+          <input type="radio" id="other" name="2" value="blahblahblah">
+          <label for="other">Other</label>
+        </fieldset>
+      </div>
+      <div>Criterion 3
+        <fieldset id="statments"> 
+          <input type="radio" id="male" name="3" value="blah">
+          <label for="male">Male</label><br>
+          <input type="radio" id="female" name="3" value="blahblah">
+          <label for="female">Female</label><br>
+          <input type="radio" id="other" name="3" value="blahblahblah">
+          <label for="other">Other</label>
+        </fieldset>
+      </div>
+      <div>Criterion 4
+        <fieldset id="statments"> 
+          <input type="radio" id="male" name="4" value="blah">
+          <label for="male">Male</label><br>
+          <input type="radio" id="female" name="4" value="blahblah">
+          <label for="female">Female</label><br>
+          <input type="radio" id="other" name="4" value="blahblahblah">
+          <label for="other">Other</label>
+        </fieldset>
+      </div>
+    </div>
+  </template>
+
 </body>
 
 </html>
