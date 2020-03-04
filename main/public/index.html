@@ -13,7 +13,6 @@
 </head>
 
 <body>
-
   <!-- state the naming convention you used in report. -->
   <template id="login-page">
     <div id="loginContainer">
@@ -44,6 +43,9 @@
           </li>
           <li>
             <a id="createdButton" href="#">Created</a>
+          </li>
+          <li>
+            <a id="userReviewButton" href="#">User Reviews</a>
           </li>
         </ul>
       </div>
@@ -80,6 +82,9 @@
           <li>
             <a id="createdButton" href="#">Created</a>
           </li>
+          <li>
+            <a id="userReviewButton" href="#">User Reviews</a>
+          </li>
         </ul>
       </div>
       <div id='created'>
@@ -95,6 +100,44 @@
           <button type="button" class="collapsible">Criteria 2</button>
           <div class="content">
             <p>Lorem ipsum...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="userReviewsPage">
+    <div id="useReviewsContainer">
+      <h1>Creviews the User has created</h1>
+      <div class='menu-container'>
+        <ul>
+          <li>
+            <a id="activeButton" href="#">Active</a>
+          </li>
+          <li>
+            <a id="createdButton" href="#">Created</a>
+          </li>
+          <li>
+            <a id="userReviewButton" href="#">User Reviews</a>
+          </li>
+        </ul>
+      </div>
+      <div id='active'>
+        <div>On-going
+          <button type="button" class="collapsible">Active 1</button>
+          <div class="content">
+            <p>Lists of peers to review, their submissions and a button to the review for each one.</p>
+            <button id="testButton">Peer Test</button>
+          </div>
+        </div>
+        <div>Expired
+          <button type="button" class="collapsible">Expired 1</button>
+          <div class="content">
+            <p>Results will be here</p>
+          </div>
+          <button type="button" class="collapsible">Expired 2</button>
+          <div class="content">
+            <p>Results will be here</p>
           </div>
         </div>
       </div>
