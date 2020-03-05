@@ -33,9 +33,31 @@ window.onload = function () {
     
         // ajax post request need to fix
         function sendForm() {
-            xhttp.open("POST", "demo_post2.asp", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("fname=Henry&lname=Ford");
+            let xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/criteria", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            let criteriaFormData = document.getElementsByTagName("input");
+            let criteriaObject = {};
+            criteriaObject.title = document.getElementById('criteriaTitle').value;
+            
+            let criterionArray = document.getElementsByClassName('criterionBaseContainer');
+
+            for (let index = 0; index < criterionArray.length; index++) {
+                console.log("beep");
+                
+                criteriaObject.criteriaData[index].criterionTitle = criterionArray[index].getElementsByClassName('critTitle')[0].value;
+
+                // let statements = criterionArray[i].
+
+                // const element = array[index];
+                
+            }
+
+            let jsonString = JSON.stringify(criteriaFormData);
+            console.log(jsonString);
+            
+            xhttp.send(jsonString);
+
         }
     
     
@@ -66,8 +88,6 @@ window.onload = function () {
             document.getElementById('cancelCohort').onclick = function () {
                 loadCreated();
             }
-
-
         }
 
         document.getElementById('addCriteria').onclick = function () {
@@ -90,6 +110,12 @@ window.onload = function () {
                 // Append the cloned <li> element to <ul> with id="myList1"
                 document.getElementById("statementContainer").appendChild(cln);
                 count ++;
+            }
+
+            document.getElementById('saveCriteria').onclick = function() {
+                sendForm();
+                console.log("formSent");
+                
             }
 
             document.getElementById('addCriterion').onclick = function () {

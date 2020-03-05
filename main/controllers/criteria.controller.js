@@ -1,4 +1,4 @@
-const Criteria = require('../models/cohort.model.js');
+const Criteria = require('../models/criteria.model.js');
 
 //Create new Criteria
 exports.create = (req, res) => {
@@ -12,9 +12,10 @@ exports.create = (req, res) => {
     // Create a Criteria
     const criteria = new Criteria({
         title: req.body.title || "No criteria title", 
-        criteriaData: req.body.criteriaData
+        criteriaData: req.body
     });
 
+    
     // Save Product in the database
     criteria.save()
     .then(data => {
@@ -29,16 +30,16 @@ exports.create = (req, res) => {
 // Retrieve all products from the database.
 exports.findAll = (req, res) => {
     Criteria.find()
-    .then(allCriteria => {
-        res.send(allCriteria);
+    .then(criterias => {
+        res.send(criterias);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Something wrong while retrieving criteria."
+            message: err.message || "Something wrong while retrieving all criteria."
         });
     });
 };
 
-// Find a single product with a productId
+// Find a single criteria with a criteriaId
 exports.findOne = (req, res) => {
     Criteria.findById(req.params.criteriaId)
     .then(criteria => {

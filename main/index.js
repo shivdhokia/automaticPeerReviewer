@@ -18,6 +18,7 @@ app.use(function(req, res, next) {
 const config = require('./config.js');
 const mongoose = require('mongoose');
 require('./routes/cohort.routes.js')(app);  //Add route file here
+require('./routes/criteria.routes.js')(app);  //Add route file here
 
 mongoose.Promise = global.Promise;
 
@@ -33,11 +34,11 @@ mongoose.connect(config.url, {
 
 // app.use(express.json());
 
-app.get('/', (req, res) => {
-	res.json({"message": "Welcome to ZeptoBook Product app"});
-	console.log("beep boop");
+// app.get('/', (req, res) => {
+// 	res.json({"message": "Welcome to ZeptoBook Product app"});
+// 	console.log("beep boop");
 	
-});
+// });
 
 app.listen(config.serverport);
 console.log('Running on port 8000...');

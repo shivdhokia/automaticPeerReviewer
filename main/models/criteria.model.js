@@ -4,7 +4,7 @@ const CriteriaSchema = mongoose.Schema({
     title: String,
     criteriaData: [
         {
-            title:String,
+            criterionTitle:String,
             statements:[
                 {statment:String,
                 score: Number}

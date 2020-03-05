@@ -8,11 +8,11 @@ module.exports = (app) => {
     app.get('/criteria', criteria.findAll);
 
     // Retrieve a single Criteria with productId
-    app.get('/criteria/:cohortId', criteria.findOne);
+    app.get('/criteria/:criteriaId', criteria.findOne);
 
     // Update a Note with criteriaId
-    app.put('/criteria/:cohortId', criteria.update);
+    app.put('/criteria/:criteriaId', criteria.update);
 
     // Delete a Note with criteriaId
-    app.delete('/cohcriteriaorts/:cohortId', criteria.delete);
+    app.delete('/criteria/:criteriaId', criteria.delete);
 }

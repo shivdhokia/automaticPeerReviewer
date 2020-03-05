@@ -177,33 +177,34 @@
   <template id="criteriaForm">
     <div id="criteriaFormContainer">
       <div id="criteria_form">
-        <form method="post">
+        <form id="criteriaDataForm">
           <label>Title:</label>
-          <input name="submitted-title" autocomplete="title">
+          <input id="criteriaTitle" name="submitted-title" autocomplete="title">
           </label>
           <i id="addCriterion" class="material-icons addIcon">add_circle</i>
-          <fieldset id="criterionContainer">
+          <div id="criteriaContainer">
+          <fieldset id="criterionContainer" class="criterionBaseContainer">
             <legend>Criterion
             </legend>
             <label for="Criterion Title">Title</label>
-            <input type="text" name="Criterion Title" id="critTitle">
+            <input type="text" name="Criterion Title" id="critTitle" class="critTitle">
             <fieldset id="statementContainer">
               <legend>Statments
                 <i id="addStatement" class="material-icons addIcon">add_circle</i>
               </legend>
 
-              <div id="statementDiv">
+              <div id="statementDiv" class="statements">
                 <label for="Statemenet">Statement</label>
-                <input type="text" name="Statment">
+                <input type="text" name="Statment" class="statement">
                 <label for="Score">Score</label>
-                <input type="text" name="Score">
+                <input type="text" name="Score" class="score">
               </div>
 
             </fieldset>
           </fieldset>
-
-          <input type="submit" value="Create">
+        </div>
           <input id="cancelCriteria" type="button" value="Cancel">
+          <input id="saveCriteria" type="button" value="Create">
         </form>
       </div>
     </div>
