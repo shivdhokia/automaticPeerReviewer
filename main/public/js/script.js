@@ -38,22 +38,41 @@ window.onload = function () {
             xhttp.setRequestHeader("Content-type", "application/json");
             let criteriaFormData = document.getElementsByTagName("input");
             let criteriaObject = {};
+            criteriaObject.criteriaData = [];
             criteriaObject.title = document.getElementById('criteriaTitle').value;
             
             let criterionArray = document.getElementsByClassName('criterionBaseContainer');
 
+            
+            
             for (let index = 0; index < criterionArray.length; index++) {
-                console.log("beep");
-                
-                criteriaObject.criteriaData[index].criterionTitle = criterionArray[index].getElementsByClassName('critTitle')[0].value;
+                let critTitle = criterionArray[index].getElementsByClassName('critTitle')[0].value;
 
-                // let statements = criterionArray[i].
+                criteriaObject.criteriaData[index] = {};
 
-                // const element = array[index];
+                criteriaObject.criteriaData[index].criteriaTitle = critTitle;
                 
+                let statmentsArrayElem = criterionArray[index].getElementsByClassName('statements')[index].getElementsByTagName('input');
+
+                criteriaObject.criteriaData[index].statements = [];
+
+                let statementObjArray = [];
+
+                for (let j = 0; j < statmentsArrayElem.length; j++) {
+                    
+                    let newStatementObj = {}
+                    if (j % 2 == 0) {
+                        newStatementObj.statement = statmentsArrayElem[j].value;
+                        newStatementObj.score = statmentsArrayElem[j+1].value;
+
+                        statementObjArray.push(newStatementObj);
+                    }
+                }
+
+                criteriaObject.criteriaData[index].statements = statementObjArray;
             }
 
-            let jsonString = JSON.stringify(criteriaFormData);
+            let jsonString = JSON.stringify(criteriaObject);
             console.log(jsonString);
             
             xhttp.send(jsonString);

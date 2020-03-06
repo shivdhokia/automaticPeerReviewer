@@ -12,7 +12,7 @@ exports.create = (req, res) => {
     // Create a Criteria
     const criteria = new Criteria({
         title: req.body.title || "No criteria title", 
-        criteriaData: req.body
+        criteriaData: req.body.criteriaData
     });
 
     
