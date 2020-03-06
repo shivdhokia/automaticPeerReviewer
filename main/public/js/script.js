@@ -8,79 +8,83 @@ window.onload = function () {
         document.body.appendChild(clone);
     }
 
-        // ajax get request need to fix
-        function loadXMLDoc() {
-            var xmlhttp = new XMLHttpRequest();
-    
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-                    if (xmlhttp.status == 200) {
-                        document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
-                    }
-                    else if (xmlhttp.status == 400) {
-                        alert('There was an error 400');
-                    }
-                    else {
-                        alert('something else other than 200 was returned');
-                    }
+    // ajax get request need to fix
+    function loadXMLDoc() {
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
+                if (xmlhttp.status == 200) {
+                    document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+                } else if (xmlhttp.status == 400) {
+                    alert('There was an error 400');
+                } else {
+                    alert('something else other than 200 was returned');
                 }
-            };
-    
-            xmlhttp.open("GET", "ajax_info.txt", true);
-            xmlhttp.send();
-        }
-    
-    
-        // ajax post request need to fix
-        function sendForm() {
-            let xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "/criteria", true);
-            xhttp.setRequestHeader("Content-type", "application/json");
-            let criteriaFormData = document.getElementsByTagName("input");
-            let criteriaObject = {};
-            criteriaObject.criteriaData = [];
-            criteriaObject.title = document.getElementById('criteriaTitle').value;
-            
-            let criterionArray = document.getElementsByClassName('criterionBaseContainer');
+            }
+        };
 
-            
-            
-            for (let index = 0; index < criterionArray.length; index++) {
-                let critTitle = criterionArray[index].getElementsByClassName('critTitle')[0].value;
+        xmlhttp.open("GET", "ajax_info.txt", true);
+        xmlhttp.send();
+    }
 
-                criteriaObject.criteriaData[index] = {};
 
-                criteriaObject.criteriaData[index].criteriaTitle = critTitle;
+    // ajax post request need to fix
+    function sendForm() {
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/criteria", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        let criteriaFormData = document.getElementsByTagName("input");
+        let criteriaObject = {};
+        criteriaObject.criteriaData = [];
+        criteriaObject.title = document.getElementById('criteriaTitle').value;
+
+        let criterionArray = document.getElementsByClassName('criterionBaseContainer');
+
+        for (let index = 0; index < criterionArray.length; index++) {
+            let critTitle = criterionArray[index].getElementsByClassName('critTitle')[0].value;
+
+            criteriaObject.criteriaData[index] = {};
+
+            criteriaObject.criteriaData[index].criterionTitle = critTitle;
+
+            let statmentsArrayElem = criterionArray[index].getElementsByClassName('statements');
+            // [index].getElementsByTagName('input');
+
+            // let test = criterionArray[index].getElementsByClassName('statements')[index];
+
+            criteriaObject.criteriaData[index].statements = [];
+
+            let statementObjArray = [];
+
+            for (let k = 0; k < statmentsArrayElem.length; k++) {
                 
-                let statmentsArrayElem = criterionArray[index].getElementsByClassName('statements')[index].getElementsByTagName('input');
+                let statmentsArrayElem2 = statmentsArrayElem[k].getElementsByTagName('input');
 
-                criteriaObject.criteriaData[index].statements = [];
+                for (let j = 0; j < statmentsArrayElem2.length; j++) {
 
-                let statementObjArray = [];
-
-                for (let j = 0; j < statmentsArrayElem.length; j++) {
-                    
                     let newStatementObj = {}
                     if (j % 2 == 0) {
-                        newStatementObj.statement = statmentsArrayElem[j].value;
-                        newStatementObj.score = statmentsArrayElem[j+1].value;
+                        newStatementObj.statement = statmentsArrayElem2[j].value;
+                        newStatementObj.score = statmentsArrayElem2[j + 1].value;
 
                         statementObjArray.push(newStatementObj);
                     }
                 }
-
-                criteriaObject.criteriaData[index].statements = statementObjArray;
             }
 
-            let jsonString = JSON.stringify(criteriaObject);
-            console.log(jsonString);
-            
-            xhttp.send(jsonString);
-
+            criteriaObject.criteriaData[index].statements = statementObjArray;
         }
-    
-    
-    
+
+        let jsonString = JSON.stringify(criteriaObject);
+        console.log(jsonString);
+
+        xhttp.send(jsonString);
+
+    }
+
+
+
 
     // allows for collapsible divs.
     function collapsible() {
@@ -112,36 +116,36 @@ window.onload = function () {
         document.getElementById('addCriteria').onclick = function () {
             loadTemplate('#criteriaForm');
             let count = 1;
-            let count2 =1;
+            let count2 = 1;
             document.getElementById('cancelCriteria').onclick = function () {
                 loadCreated();
             }
 
             document.getElementById('addStatement').onclick = function () {
                 console.log("button clicked to add statement");
-                
+
                 // Get the last <li> element ("Milk") of <ul> with id="myList2"
                 var itm = document.getElementById("statementDiv");
 
                 // Copy the <li> element and its child nodes
                 var cln = itm.cloneNode(true);
-                cln.id = "statement"+count;
+                cln.id = "statement" + count;
                 // Append the cloned <li> element to <ul> with id="myList1"
                 document.getElementById("statementContainer").appendChild(cln);
-                count ++;
+                count++;
             }
 
-            document.getElementById('saveCriteria').onclick = function() {
+            document.getElementById('saveCriteria').onclick = function () {
                 sendForm();
-                console.log("formSent");
-                
+                // console.log("formSent");
+
             }
 
             document.getElementById('addCriterion').onclick = function () {
                 let item = document.getElementById("criterionContainer");
 
                 let clone = item.cloneNode(true);
-                clone.id = "criterion"+count2;
+                clone.id = "criterion" + count2;
                 document.getElementById("criteria_form").appendChild(clone);
                 count2++;
             }
@@ -176,10 +180,10 @@ window.onload = function () {
             let statements = this.parentNode.children;
 
             for (let statement of statements) {
-                if (statement.classList.contains('statement.selected')){
+                if (statement.classList.contains('statement.selected')) {
                     statement.classList.remove('statement.selected');
                     console.log("removed class");
-                    
+
                 }
             }
 
@@ -217,4 +221,3 @@ window.onload = function () {
 
 
 }
-
