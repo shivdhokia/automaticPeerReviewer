@@ -34,7 +34,6 @@ window.onload = function () {
         let xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/criteria", true);
         xhttp.setRequestHeader("Content-type", "application/json");
-        let criteriaFormData = document.getElementsByTagName("input");
         let criteriaObject = {};
         criteriaObject.criteriaData = [];
         criteriaObject.title = document.getElementById('criteriaTitle').value;
@@ -48,25 +47,22 @@ window.onload = function () {
 
             criteriaObject.criteriaData[index].criterionTitle = critTitle;
 
-            let statmentsArrayElem = criterionArray[index].getElementsByClassName('statements');
-            // [index].getElementsByTagName('input');
-
-            // let test = criterionArray[index].getElementsByClassName('statements')[index];
+            let statmentsDivArrayElem = criterionArray[index].getElementsByClassName('statements');
 
             criteriaObject.criteriaData[index].statements = [];
 
             let statementObjArray = [];
 
-            for (let k = 0; k < statmentsArrayElem.length; k++) {
-                
-                let statmentsArrayElem2 = statmentsArrayElem[k].getElementsByTagName('input');
+            for (let k = 0; k < statmentsDivArrayElem.length; k++) {
 
-                for (let j = 0; j < statmentsArrayElem2.length; j++) {
+                let statmentsArrayElem = statmentsDivArrayElem[k].getElementsByTagName('input');
+
+                for (let j = 0; j < statmentsArrayElem.length; j++) {
 
                     let newStatementObj = {}
                     if (j % 2 == 0) {
-                        newStatementObj.statement = statmentsArrayElem2[j].value;
-                        newStatementObj.score = statmentsArrayElem2[j + 1].value;
+                        newStatementObj.statement = statmentsArrayElem[j].value;
+                        newStatementObj.score = statmentsArrayElem[j + 1].value;
 
                         statementObjArray.push(newStatementObj);
                     }
@@ -76,10 +72,10 @@ window.onload = function () {
             criteriaObject.criteriaData[index].statements = statementObjArray;
         }
 
-        let jsonString = JSON.stringify(criteriaObject);
-        console.log(jsonString);
+        let criteriaString = JSON.stringify(criteriaObject);
+        // console.log(criteriaString);
 
-        xhttp.send(jsonString);
+        xhttp.send(criteriaString);
 
     }
 
