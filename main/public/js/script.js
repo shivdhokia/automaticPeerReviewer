@@ -68,19 +68,17 @@ window.onload = function () {
                     }
                 }
             }
-
             criteriaObject.criteriaData[index].statements = statementObjArray;
         }
-
         let criteriaString = JSON.stringify(criteriaObject);
         // console.log(criteriaString);
-
         xhttp.send(criteriaString);
 
     }
 
+    function addStatementButton(e) {
 
-
+    }
 
     // allows for collapsible divs.
     function collapsible() {
@@ -111,39 +109,21 @@ window.onload = function () {
 
         document.getElementById('addCriteria').onclick = function () {
             loadTemplate('#criteriaForm');
-            let count = 1;
-            let count2 = 1;
+
             document.getElementById('cancelCriteria').onclick = function () {
                 loadCreated();
-            }
-
-            document.getElementById('addStatement').onclick = function () {
-                console.log("button clicked to add statement");
-
-                // Get the last <li> element ("Milk") of <ul> with id="myList2"
-                var itm = document.getElementById("statementDiv");
-
-                // Copy the <li> element and its child nodes
-                var cln = itm.cloneNode(true);
-                cln.id = "statement" + count;
-                // Append the cloned <li> element to <ul> with id="myList1"
-                document.getElementById("statementContainer").appendChild(cln);
-                count++;
             }
 
             document.getElementById('saveCriteria').onclick = function () {
                 sendForm();
                 // console.log("formSent");
-
             }
 
             document.getElementById('addCriterion').onclick = function () {
-                let item = document.getElementById("criterionContainer");
-
-                let clone = item.cloneNode(true);
-                clone.id = "criterion" + count2;
-                document.getElementById("criteria_form").appendChild(clone);
-                count2++;
+                let item = document.getElementById("criterionTemplate");
+                let clone = document.importNode(item.content, true);
+                document.getElementById("criteriaDataForm").lastChild.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.appendChild(clone);
+                // document.getElementById("criteriaDataForm").lastChild.previousSibling.previousSibling.appendChild(clone);
             }
 
         }
@@ -164,8 +144,6 @@ window.onload = function () {
 
         document.getElementById('testButton').onclick = function () {
             loadPeerReview();
-
-
         }
     }
 
@@ -179,10 +157,8 @@ window.onload = function () {
                 if (statement.classList.contains('statement.selected')) {
                     statement.classList.remove('statement.selected');
                     console.log("removed class");
-
                 }
             }
-
             this.classList.add('statement.selected');
             console.log("added class");
         }
@@ -213,7 +189,25 @@ window.onload = function () {
     document.getElementById('loginBtn').onclick = function () {
         loadActive();
     }
+}
 
+document.addEventListener('click', function (e) {
+    if (hasClass(e.target, 'addStatement')) {
+        let parent = e.target.parentNode.nextSibling.nextSibling;
 
+        // Create statement-score pair for particular criterion.
+        
+        // Get the last <li> element ("Milk") of <ul> with id="myList2"
+        
+        let statementTemplate = document.getElementById("statementClone");
 
+        // Copy the <li> element and its child nodes
+        let statementCln = document.importNode(statementTemplate.content, true);
+        parent.appendChild(statementCln);
+
+    }
+}, false);
+
+function hasClass(elem, className) {
+    return elem.classList.contains(className);
 }
