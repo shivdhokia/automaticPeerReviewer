@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     const cohort = new Cohort({
         title: req.body.title || "No cohort title", 
         criteria: req.body.criteria,
-        submission: req.body.submission,
+        submissionLink: req.body.submissionLink,
         startDate: req.body.startDate,
         expiryDate: req.body.expiryDate
     });
@@ -76,7 +76,7 @@ exports.update = (req, res) => {
     Cohort.findByIdAndUpdate(req.params.cohortId, {
         title: req.body.title || "No cohort title", 
         criteria: req.body.criteria,
-        submission: req.body.submission,
+        submissionLink: req.body.submissionLink,
         startDate: req.body.startDate,
         expiryDate:req.body.expiryDate
     }, {new: true})

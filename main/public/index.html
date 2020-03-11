@@ -154,8 +154,8 @@
           </label>
           <fieldset>
             <legend>Criteria</legend>
-            <input type="button" value="Create New">
-            <input type="button" value="Use Existing">
+            <input id="newCriteria" type="button" value="Create New">
+            <input id="getCreatedCriteria" type="button" value="Use Existing">
           </fieldset>
           <label>Peers:</label>
           <input name="peers" autocomplete="peers">
@@ -284,6 +284,10 @@
         </fieldset>
       </fieldset>
     </div>
+  </template>
+
+  <template id="showCriteria">
+    <div id="criteriaBox"></div>
   </template>
 
 </body>

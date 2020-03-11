@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const CohortSchema = mongoose.Schema({
     title: String,
     criteria: String,
-    submission: Number,
+    submissionLink: String,
 	startDate: Date,
 	expiryDate: Date
 }, {

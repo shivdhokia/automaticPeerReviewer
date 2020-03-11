@@ -9,13 +9,15 @@ window.onload = function () {
     }
 
     // ajax get request need to fix
-    function loadXMLDoc() {
+
+    function getAllCriteria() {
         var xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
                 if (xmlhttp.status == 200) {
-                    document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+                    loadTemplate('#showCriteria');
+                    document.getElementById("criteriaBox").innerHTML = xmlhttp.responseText;
                 } else if (xmlhttp.status == 400) {
                     alert('There was an error 400');
                 } else {
@@ -24,7 +26,7 @@ window.onload = function () {
             }
         };
 
-        xmlhttp.open("GET", "ajax_info.txt", true);
+        xmlhttp.open("GET", "/criteria", true);
         xmlhttp.send();
     }
 
@@ -42,28 +44,19 @@ window.onload = function () {
 
         for (let index = 0; index < criterionArray.length; index++) {
             let critTitle = criterionArray[index].getElementsByClassName('critTitle')[0].value;
-
             criteriaObject.criteriaData[index] = {};
-
             criteriaObject.criteriaData[index].criterionTitle = critTitle;
-
             let statmentsDivArrayElem = criterionArray[index].getElementsByClassName('statements');
-
             criteriaObject.criteriaData[index].statements = [];
-
             let statementObjArray = [];
 
             for (let k = 0; k < statmentsDivArrayElem.length; k++) {
-
                 let statmentsArrayElem = statmentsDivArrayElem[k].getElementsByTagName('input');
-
                 for (let j = 0; j < statmentsArrayElem.length; j++) {
-
                     let newStatementObj = {}
                     if (j % 2 == 0) {
                         newStatementObj.statement = statmentsArrayElem[j].value;
                         newStatementObj.score = statmentsArrayElem[j + 1].value;
-
                         statementObjArray.push(newStatementObj);
                     }
                 }
@@ -73,10 +66,6 @@ window.onload = function () {
         let criteriaString = JSON.stringify(criteriaObject);
         // console.log(criteriaString);
         xhttp.send(criteriaString);
-
-    }
-
-    function addStatementButton(e) {
 
     }
 
@@ -104,6 +93,10 @@ window.onload = function () {
             loadTemplate('#cohort_form_page');
             document.getElementById('cancelCohort').onclick = function () {
                 loadCreated();
+            }
+
+            document.getElementById('getCreatedCriteria').onclick = function () {
+                getAllCriteria();
             }
         }
 
