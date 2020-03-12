@@ -148,9 +148,9 @@
     <div id="cohortFormContainer">
       <h1>Create Cohort</h1>
       <div class='cohort_form'>
-        <form method="post">
+        <form method="POST">
           <label>Title:</label>
-          <input name="title" autocomplete="title">
+          <input id="cohortTitle" name="title" autocomplete="title">
           </label>
           <fieldset>
             <legend>Criteria</legend>
@@ -163,10 +163,10 @@
           <label>Submission:</label>
           <input name="submission" autocomplete="submission">
           </label>
-          <label for="expiryDate">Expiry Date</label>
-          <input type="date" name="expiryDate" id="date-expiry">
           <label for="startDate">Start Date</label>
-          <input type="date" name="startDate" id="date-start">
+          <input id="startDate" type="date" name="startDate" id="date-start">
+          <label for="expiryDate">Expiry Date</label>
+          <input id="expiryDate" type="date" name="expiryDate" id="date-expiry">
           <input type="submit" value="Create">
           <input id="cancelCohort" type="button" value="Cancel">
         </form>

@@ -30,9 +30,49 @@ window.onload = function () {
         xmlhttp.send();
     }
 
+    function sendCohort() {
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/cohort", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        let cohortObject = {};
+
+        cohortObject.title = document.getElementById('cohortTitle');
+
+        // if clicked use new criteria emulate new crit screen.
+
+        // else GET list of crits and select one. 
+
+        cohortObject.startDate = document.getElementById('startDate');
+        cohortObject.expiryDate = document.getElementById('expiryDate');
+        let cohortObjectString = JSON.stringify(cohortObject);
+        xhttp.send(cohortObjectString);
+
+        
+        // Creates random link 
+
+       /*  var links = [
+            "google.com",
+            "youtube.com",
+            "reddit.com",
+            "apple.com"
+        ]
+
+        var openSite = function () {
+            // get a random number between 0 and the number of links
+            var randIdx = Math.random() * links.length;
+            // round it, so it can be used as array index
+            randIdx = parseInt(randIdx, 10);
+            // construct the link to be opened
+            var link = 'http://' + links[randIdx];
+
+            return link;
+        }; */
+
+
+    }
 
     // ajax post request need to fix
-    function sendForm() {
+    function sendCriteria() {
         let xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/criteria", true);
         xhttp.setRequestHeader("Content-type", "application/json");
@@ -66,6 +106,8 @@ window.onload = function () {
         let criteriaString = JSON.stringify(criteriaObject);
         // console.log(criteriaString);
         xhttp.send(criteriaString);
+
+        loadCreated();
 
     }
 
@@ -108,7 +150,7 @@ window.onload = function () {
             }
 
             document.getElementById('saveCriteria').onclick = function () {
-                sendForm();
+                sendCriteria();
                 // console.log("formSent");
             }
 
@@ -189,9 +231,9 @@ document.addEventListener('click', function (e) {
         let parent = e.target.parentNode.nextSibling.nextSibling;
 
         // Create statement-score pair for particular criterion.
-        
+
         // Get the last <li> element ("Milk") of <ul> with id="myList2"
-        
+
         let statementTemplate = document.getElementById("statementClone");
 
         // Copy the <li> element and its child nodes
