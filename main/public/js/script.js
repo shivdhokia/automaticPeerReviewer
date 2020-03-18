@@ -47,27 +47,26 @@ window.onload = function () {
         let cohortObjectString = JSON.stringify(cohortObject);
         xhttp.send(cohortObjectString);
 
-        
+
         // Creates random link 
 
-       /*  var links = [
-            "google.com",
-            "youtube.com",
-            "reddit.com",
-            "apple.com"
-        ]
+        /*  var links = [
+             "google.com",
+             "youtube.com",
+             "reddit.com",
+             "apple.com"
+         ]
 
-        var openSite = function () {
-            // get a random number between 0 and the number of links
-            var randIdx = Math.random() * links.length;
-            // round it, so it can be used as array index
-            randIdx = parseInt(randIdx, 10);
-            // construct the link to be opened
-            var link = 'http://' + links[randIdx];
+         var openSite = function () {
+             // get a random number between 0 and the number of links
+             var randIdx = Math.random() * links.length;
+             // round it, so it can be used as array index
+             randIdx = parseInt(randIdx, 10);
+             // construct the link to be opened
+             var link = 'http://' + links[randIdx];
 
-            return link;
-        }; */
-
+             return link;
+         }; */
 
     }
 
@@ -106,9 +105,58 @@ window.onload = function () {
         let criteriaString = JSON.stringify(criteriaObject);
         // console.log(criteriaString);
         xhttp.send(criteriaString);
-
         loadCreated();
+    }
 
+    function loadCriteriaData() {
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
+                if (xmlhttp.status == 200) {
+                    let jsonObj = JSON.parse(this.responseText);
+                    console.log(jsonObj);
+
+
+                    for (let index = 0; index < jsonObj.length; index++) {
+                        const element = jsonObj[index];
+
+                        let t = document.querySelector('#collapsibleTemplate');
+                        let clone = document.importNode(t.content, true);
+                        console.log(element.title);
+                        let cloneContents = Array.from(clone.children);
+                        for (let j = 0; j < cloneContents.length; j++) {
+                            const content = cloneContents[j];
+
+                            if (content.classList.contains("collapsible")) {
+                               content.innerHTML = element.title; 
+                            }
+                            
+                            if (content.classList.contains("content")) {
+                                content.textContent = JSON.stringify(element.criteriaData);
+                            }
+                        }
+                        // let btn = clone.
+                        // clone.innerHTML = element.title;
+                        let parent = document.getElementById('criteriaList');
+                        parent.appendChild(clone);
+
+                        // document.getElementById("criteriaBox").innerHTML = xmlhttp.responseText;
+
+                    }
+
+                    collapsible();
+
+                } else if (xmlhttp.status == 400) {
+                    alert('There was an error 400');
+                } else {
+                    alert('something else other than 200 was returned');
+                }
+            }
+        };
+
+        xmlhttp.open("GET", "/criteria", true);
+        xmlhttp.send();
     }
 
     // allows for collapsible divs.
@@ -202,8 +250,8 @@ window.onload = function () {
 
     function loadCreated() {
         loadTemplate('#created-page');
-        collapsible();
         loadFormButtons();
+        loadCriteriaData();
 
         document.getElementById('createdButton').onclick = function () {
             // do nothing
@@ -213,6 +261,7 @@ window.onload = function () {
         document.getElementById('activeButton').onclick = function () {
             loadActive();
         }
+        // collapsible();
     }
 
     // loads the login page
