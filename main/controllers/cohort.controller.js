@@ -58,7 +58,7 @@ exports.findExpired = (req, res) => {
                 let expiry = new Date(cohort.expiryDate);
                 let now = new Date();
                 if (expiry <  now) {
-                    activeCohorts.push(cohort);
+                    expiredCohorts.push(cohort);
                 }
             }
             res.send(expiredCohorts);
