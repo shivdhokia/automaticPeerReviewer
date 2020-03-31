@@ -35,9 +35,10 @@ exports.findActive = (req, res) => {
            let activeCohorts=[];
             for (let index = 0; index < cohorts.length; index++) {
                 const cohort = cohorts[index];
+                let start = new Date(cohort.startDate);
                 let expiry = new Date(cohort.expiryDate);
                 let now = new Date();
-                if (expiry >  now) {
+                if (expiry >  now && now <= start) {
                     activeCohorts.push(cohort);
                 }
             }

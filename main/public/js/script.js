@@ -92,37 +92,113 @@ window.onload = function () {
         loadCreated();
     }
 
+    function loadActiveReview(container) {
+        let xmlhttp = new XMLHttpRequest();
+
+        function reqActiveReviews() {
+            let jsonObj = JSON.parse(this.responseText);
+
+            for (let index = 0; index < jsonObj.length; index++) {
+                const element = jsonObj[index];
+
+                let t = document.querySelector('#collapsibleTemplate');
+                let clone = document.importNode(t.content, true);
+                // console.log(element.title);
+                let cloneContents = Array.from(clone.children);
+                for (let j = 0; j < cloneContents.length; j++) {
+                    const content = cloneContents[j];
+
+                    if (content.classList.contains("collapsible")) {
+                        content.innerHTML = element.title;
+                    }
+
+                    if (content.classList.contains("content")) {
+                        content.textContent = JSON.stringify("criteriaId: " + element.criteria);
+                    }
+
+                }
+
+                let parent = document.getElementById(container);
+                parent.appendChild(clone);
+            }
+
+            // collapsible();
+        }
+
+        xmlhttp.addEventListener("load", reqActiveReviews);
+        xmlhttp.open("GET", "/cohorts/active", true);
+        xmlhttp.send();
+    }
+
+    function loadExpiredReview(container) {
+        let xmlhttp = new XMLHttpRequest();
+
+        function reqExpiredReviews() {
+            let jsonObj = JSON.parse(this.responseText);
+
+            for (let index = 0; index < jsonObj.length; index++) {
+                const element = jsonObj[index];
+
+                let t = document.querySelector('#collapsibleTemplate');
+                let clone = document.importNode(t.content, true);
+                // console.log(element.title);
+                let cloneContents = Array.from(clone.children);
+                for (let j = 0; j < cloneContents.length; j++) {
+                    const content = cloneContents[j];
+
+                    if (content.classList.contains("collapsible")) {
+                        content.innerHTML = element.title;
+                    }
+
+                    if (content.classList.contains("content")) {
+                        content.textContent = JSON.stringify("criteriaId: " + element.criteria);
+                    }
+
+                }
+
+                let parent = document.getElementById(container);
+                parent.appendChild(clone);
+            }
+
+            collapsible();
+        }
+
+        xmlhttp.addEventListener("load", reqExpiredReviews);
+        xmlhttp.open("GET", "/cohorts/expired", true);
+        xmlhttp.send();
+    }
+
     function loadCohortData(container) {
         let xmlhttp = new XMLHttpRequest();
 
         function reqCohorts() {
             let jsonObj = JSON.parse(this.responseText);
 
-                    for (let index = 0; index < jsonObj.length; index++) {
-                        const element = jsonObj[index];
+            for (let index = 0; index < jsonObj.length; index++) {
+                const element = jsonObj[index];
 
-                        let t = document.querySelector('#collapsibleTemplate');
-                        let clone = document.importNode(t.content, true);
-                        // console.log(element.title);
-                        let cloneContents = Array.from(clone.children);
-                        for (let j = 0; j < cloneContents.length; j++) {
-                            const content = cloneContents[j];
+                let t = document.querySelector('#collapsibleTemplate');
+                let clone = document.importNode(t.content, true);
+                // console.log(element.title);
+                let cloneContents = Array.from(clone.children);
+                for (let j = 0; j < cloneContents.length; j++) {
+                    const content = cloneContents[j];
 
-                            if (content.classList.contains("collapsible")) {
-                                content.innerHTML = element.title;
-                            }
-
-                            if (content.classList.contains("content")) {
-                                content.textContent = JSON.stringify("criteriaId: " + element.criteria);
-                            }
-
-                        }
-
-                        let parent = document.getElementById(container);
-                        parent.appendChild(clone);
+                    if (content.classList.contains("collapsible")) {
+                        content.innerHTML = element.title;
                     }
 
-                    // collapsible();
+                    if (content.classList.contains("content")) {
+                        content.textContent = JSON.stringify("criteriaId: " + element.criteria);
+                    }
+
+                }
+
+                let parent = document.getElementById(container);
+                parent.appendChild(clone);
+            }
+
+            // collapsible();
         }
 
         xmlhttp.addEventListener("load", reqCohorts);
@@ -134,35 +210,35 @@ window.onload = function () {
     function loadCriteriaData(container) {
         let xmlhttp = new XMLHttpRequest();
 
-        function reqCriteria () {
+        function reqCriteria() {
             let jsonObj = JSON.parse(this.responseText);
-                    // console.log(jsonObj);
+            // console.log(jsonObj);
 
-                    for (let index = 0; index < jsonObj.length; index++) {
-                        const element = jsonObj[index];
+            for (let index = 0; index < jsonObj.length; index++) {
+                const element = jsonObj[index];
 
-                        let t = document.querySelector('#collapsibleTemplate');
-                        let clone = document.importNode(t.content, true);
-                        // console.log(element.title);
-                        let cloneContents = Array.from(clone.children);
-                        for (let j = 0; j < cloneContents.length; j++) {
-                            const content = cloneContents[j];
+                let t = document.querySelector('#collapsibleTemplate');
+                let clone = document.importNode(t.content, true);
+                // console.log(element.title);
+                let cloneContents = Array.from(clone.children);
+                for (let j = 0; j < cloneContents.length; j++) {
+                    const content = cloneContents[j];
 
-                            if (content.classList.contains("collapsible")) {
-                                content.innerHTML = element.title;
-                            }
-
-                            if (content.classList.contains("content")) {
-                                content.textContent = JSON.stringify(element.criteriaData);
-                            }
-
-                        }
-
-                        let parent = document.getElementById(container);
-                        parent.appendChild(clone);
+                    if (content.classList.contains("collapsible")) {
+                        content.innerHTML = element.title;
                     }
 
-                    collapsible();
+                    if (content.classList.contains("content")) {
+                        content.textContent = JSON.stringify(element.criteriaData);
+                    }
+
+                }
+
+                let parent = document.getElementById(container);
+                parent.appendChild(clone);
+            }
+
+            collapsible();
         }
 
         xmlhttp.addEventListener("load", reqCriteria);
@@ -231,7 +307,7 @@ window.onload = function () {
 
     function loadActive() {
         loadTemplate('#active-page');
-        collapsible();
+        // collapsible();
 
         document.getElementById('createdButton').onclick = function () {
             loadCreated();
@@ -246,6 +322,9 @@ window.onload = function () {
         document.getElementById('testButton').onclick = function () {
             loadPeerReview();
         }
+
+        loadActiveReview('activeList');
+        loadExpiredReview('expiredList');
     }
 
     function loadPeerReview() {
@@ -281,7 +360,7 @@ window.onload = function () {
 
         loadCohortData('cohortList');
         loadCriteriaData('criteriaList');
-        
+
 
         // collapsible();
     }
@@ -347,15 +426,15 @@ window.onload = function () {
     document.addEventListener('click', function (e) {
         if (hasClass(e.target, 'addStatement')) {
             let parent = e.target.parentNode.nextSibling.nextSibling;
-    
+
             // Clones statement-score pair for particular criterion.
             let statementTemplate = document.getElementById("statementClone");
             let statementCln = document.importNode(statementTemplate.content, true);
             parent.appendChild(statementCln);
         }
-    
+
     }, false);
-    
+
     function hasClass(elem, className) {
         return elem.classList.contains(className);
     }
