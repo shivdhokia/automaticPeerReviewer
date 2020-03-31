@@ -18,7 +18,7 @@ window.onload = function () {
         xhttp.setRequestHeader("Content-type", "application/json");
         let cohortObject = {};
 
-        cohortObject.title = document.getElementById('cohortTitle');
+        cohortObject.title = document.getElementById('cohortTitle').value;
 
         // if clicked use new criteria emulate new crit screen.
 
