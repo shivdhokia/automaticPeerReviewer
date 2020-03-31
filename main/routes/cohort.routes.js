@@ -9,6 +9,8 @@ module.exports = (app) => {
 
     app.get('/cohorts/active', cohorts.findActive);
 
+    app.get('/cohorts/expired', cohorts.findExpired);
+
     // Retrieve a single Cohort with productId
     app.get('/cohorts/:cohortId', cohorts.findOne);
 

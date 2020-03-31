@@ -49,6 +49,26 @@ exports.findActive = (req, res) => {
         });
 };
 
+exports.findExpired = (req, res) => {
+    Cohort.find()
+        .then(cohorts => {
+           let expiredCohorts=[];
+            for (let index = 0; index < cohorts.length; index++) {
+                const cohort = cohorts[index];
+                let expiry = new Date(cohort.expiryDate);
+                let now = new Date();
+                if (expiry <  now) {
+                    activeCohorts.push(cohort);
+                }
+            }
+            res.send(expiredCohorts);
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Something wrong while retrieving active cohorts."
+            });
+        });
+};
+
 // Retrieve all products from the database.
 exports.findAll = (req, res) => {
     Cohort.find()
