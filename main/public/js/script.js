@@ -1,7 +1,7 @@
 var critId;
 let newCritId;
 window.onload = function () {
-    
+
     function loadTemplate(newPage) {
         const container = document.body.lastElementChild;
         document.body.removeChild(container);
@@ -92,13 +92,50 @@ window.onload = function () {
         loadCreated();
     }
 
+    function loadCohortData(container) {
+        let xmlhttp = new XMLHttpRequest();
+
+        function reqCohorts() {
+            let jsonObj = JSON.parse(this.responseText);
+
+                    for (let index = 0; index < jsonObj.length; index++) {
+                        const element = jsonObj[index];
+
+                        let t = document.querySelector('#collapsibleTemplate');
+                        let clone = document.importNode(t.content, true);
+                        // console.log(element.title);
+                        let cloneContents = Array.from(clone.children);
+                        for (let j = 0; j < cloneContents.length; j++) {
+                            const content = cloneContents[j];
+
+                            if (content.classList.contains("collapsible")) {
+                                content.innerHTML = element.title;
+                            }
+
+                            if (content.classList.contains("content")) {
+                                content.textContent = JSON.stringify("criteriaId: " + element.criteria);
+                            }
+
+                        }
+
+                        let parent = document.getElementById(container);
+                        parent.appendChild(clone);
+                    }
+
+                    collapsible();
+        }
+
+        xmlhttp.addEventListener("load", reqCohorts);
+        xmlhttp.open("GET", "/cohorts", true);
+        xmlhttp.send();
+
+    }
+
     function loadCriteriaData(container) {
         let xmlhttp = new XMLHttpRequest();
 
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
-                if (xmlhttp.status == 200) {
-                    let jsonObj = JSON.parse(this.responseText);
+        function reqCriteria () {
+            let jsonObj = JSON.parse(this.responseText);
                     // console.log(jsonObj);
 
                     for (let index = 0; index < jsonObj.length; index++) {
@@ -118,6 +155,7 @@ window.onload = function () {
                             if (content.classList.contains("content")) {
                                 content.textContent = JSON.stringify(element.criteriaData);
                             }
+
                         }
 
                         let parent = document.getElementById(container);
@@ -125,28 +163,23 @@ window.onload = function () {
                     }
 
                     collapsible();
+        }
 
-                } else if (xmlhttp.status == 400) {
-                    alert('There was an error 400');
-                } else {
-                    alert('something else other than 200 was returned');
-                }
-            }
-        };
-
+        xmlhttp.addEventListener("load", reqCriteria);
         xmlhttp.open("GET", "/criteria", true);
         xmlhttp.send();
+
     }
 
     // allows for collapsible divs.
     function collapsible() {
-        var coll = document.getElementsByClassName("collapsible");
-        var i;
+        let coll = document.getElementsByClassName("collapsible");
+        let i;
 
         for (i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", function () {
                 this.classList.toggle("active");
-                var content = this.nextElementSibling;
+                let content = this.nextElementSibling;
                 if (content.style.maxHeight) {
                     content.style.maxHeight = null;
                 } else {
@@ -158,17 +191,14 @@ window.onload = function () {
 
     function loadFormButtons() {
         document.getElementById('addCohort').onclick = function () {
-            
+
             loadTemplate('#cohort_form_page');
             document.getElementById('cancelCohort').onclick = function () {
                 loadCreated();
             }
 
             document.getElementById('getCreatedCriteria').onclick = function () {
-                // getAllCriteria();
                 useExisting();
-                console.log(critId);
-                // newCritId = critId;
 
             }
 
@@ -205,6 +235,7 @@ window.onload = function () {
 
         document.getElementById('createdButton').onclick = function () {
             loadCreated();
+
         }
 
         document.getElementById('activeButton').onclick = function () {
@@ -226,11 +257,10 @@ window.onload = function () {
             for (let statement of statements) {
                 if (statement.classList.contains('statement.selected')) {
                     statement.classList.remove('statement.selected');
-                    console.log("removed class");
                 }
             }
             this.classList.add('statement.selected');
-            console.log("added class");
+
         }
 
     }
@@ -238,7 +268,7 @@ window.onload = function () {
     function loadCreated() {
         loadTemplate('#created-page');
         loadFormButtons();
-        loadCriteriaData('criteriaList');
+
 
         document.getElementById('createdButton').onclick = function () {
             // do nothing
@@ -248,6 +278,11 @@ window.onload = function () {
         document.getElementById('activeButton').onclick = function () {
             loadActive();
         }
+
+        loadCriteriaData('criteriaList');
+        loadCohortData('cohortList');
+
+        // collapsible();
     }
 
     // loads the login page
@@ -306,23 +341,21 @@ window.onload = function () {
         xmlhttp.send();
 
 
-    }
-}
-document.addEventListener('click', function (e) {
-    if (hasClass(e.target, 'addStatement')) {
-        let parent = e.target.parentNode.nextSibling.nextSibling;
-
-        // Clones statement-score pair for particular criterion.
-        let statementTemplate = document.getElementById("statementClone");
-        let statementCln = document.importNode(statementTemplate.content, true);
-        parent.appendChild(statementCln);
-    } else if (hasClass(e.target, 'critOptn')) {
-        console.log(e.target.value);
-
 
     }
-}, false);
-
-function hasClass(elem, className) {
-    return elem.classList.contains(className);
+    document.addEventListener('click', function (e) {
+        if (hasClass(e.target, 'addStatement')) {
+            let parent = e.target.parentNode.nextSibling.nextSibling;
+    
+            // Clones statement-score pair for particular criterion.
+            let statementTemplate = document.getElementById("statementClone");
+            let statementCln = document.importNode(statementTemplate.content, true);
+            parent.appendChild(statementCln);
+        }
+    
+    }, false);
+    
+    function hasClass(elem, className) {
+        return elem.classList.contains(className);
+    }
 }
