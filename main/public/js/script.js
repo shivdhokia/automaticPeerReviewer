@@ -122,7 +122,7 @@ window.onload = function () {
                         parent.appendChild(clone);
                     }
 
-                    collapsible();
+                    // collapsible();
         }
 
         xmlhttp.addEventListener("load", reqCohorts);
@@ -279,8 +279,9 @@ window.onload = function () {
             loadActive();
         }
 
-        loadCriteriaData('criteriaList');
         loadCohortData('cohortList');
+        loadCriteriaData('criteriaList');
+        
 
         // collapsible();
     }
