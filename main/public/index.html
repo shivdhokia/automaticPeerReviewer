@@ -140,7 +140,7 @@
     <div id="cohortFormContainer">
       <h1>Create Cohort</h1>
       <div class='cohort_form'>
-        <form method="POST">
+        <form>
           <label>Title:</label>
           <input id="cohortTitle" name="title" autocomplete="title">
           </label>
@@ -159,8 +159,8 @@
           <input id="startDate" type="date" name="startDate" id="date-start">
           <label for="expiryDate">Expiry Date</label>
           <input id="expiryDate" type="date" name="expiryDate" id="date-expiry">
-          <input type="submit" value="Create">
           <input id="cancelCohort" type="button" value="Cancel">
+          <input id="cohortSubmit" type="button" value="Create">
         </form>
       </div>
     </div>
@@ -290,6 +290,9 @@
     <div id="criteriaBox"></div>
   </template>
 
+  <template id="criterionBtnTemplate">
+    <button class="criterionBtn"></button>
+  </template>
 </body>
 
 </html>

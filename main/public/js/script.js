@@ -1,5 +1,7 @@
+var critId;
+let newCritId;
 window.onload = function () {
-
+    
     function loadTemplate(newPage) {
         const container = document.body.lastElementChild;
         document.body.removeChild(container);
@@ -10,29 +12,9 @@ window.onload = function () {
 
     // ajax get request need to fix
 
-    function getAllCriteria() {
-        var xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
-                if (xmlhttp.status == 200) {
-                    loadTemplate('#showCriteria');
-                    document.getElementById("criteriaBox").innerHTML = xmlhttp.responseText;
-                } else if (xmlhttp.status == 400) {
-                    alert('There was an error 400');
-                } else {
-                    alert('something else other than 200 was returned');
-                }
-            }
-        };
-
-        xmlhttp.open("GET", "/criteria", true);
-        xmlhttp.send();
-    }
-
     function sendCohort() {
         let xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "/cohort", true);
+        xhttp.open("POST", "/cohorts", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         let cohortObject = {};
 
@@ -41,12 +23,14 @@ window.onload = function () {
         // if clicked use new criteria emulate new crit screen.
 
         // else GET list of crits and select one. 
-
-        cohortObject.startDate = document.getElementById('startDate');
-        cohortObject.expiryDate = document.getElementById('expiryDate');
+        cohortObject.criteria = critId;
+        cohortObject.startDate = document.getElementById('startDate').value;
+        cohortObject.expiryDate = document.getElementById('expiryDate').value;
+        cohortObject.submissionLink = "test";
         let cohortObjectString = JSON.stringify(cohortObject);
         xhttp.send(cohortObjectString);
 
+        loadCreated();
 
         // Creates random link 
 
@@ -108,41 +92,36 @@ window.onload = function () {
         loadCreated();
     }
 
-    function loadCriteriaData() {
-        var xmlhttp = new XMLHttpRequest();
+    function loadCriteriaData(container) {
+        let xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
                 if (xmlhttp.status == 200) {
                     let jsonObj = JSON.parse(this.responseText);
-                    console.log(jsonObj);
-
+                    // console.log(jsonObj);
 
                     for (let index = 0; index < jsonObj.length; index++) {
                         const element = jsonObj[index];
 
                         let t = document.querySelector('#collapsibleTemplate');
                         let clone = document.importNode(t.content, true);
-                        console.log(element.title);
+                        // console.log(element.title);
                         let cloneContents = Array.from(clone.children);
                         for (let j = 0; j < cloneContents.length; j++) {
                             const content = cloneContents[j];
 
                             if (content.classList.contains("collapsible")) {
-                               content.innerHTML = element.title; 
+                                content.innerHTML = element.title;
                             }
-                            
+
                             if (content.classList.contains("content")) {
                                 content.textContent = JSON.stringify(element.criteriaData);
                             }
                         }
-                        // let btn = clone.
-                        // clone.innerHTML = element.title;
-                        let parent = document.getElementById('criteriaList');
+
+                        let parent = document.getElementById(container);
                         parent.appendChild(clone);
-
-                        // document.getElementById("criteriaBox").innerHTML = xmlhttp.responseText;
-
                     }
 
                     collapsible();
@@ -179,14 +158,22 @@ window.onload = function () {
 
     function loadFormButtons() {
         document.getElementById('addCohort').onclick = function () {
-
+            
             loadTemplate('#cohort_form_page');
             document.getElementById('cancelCohort').onclick = function () {
                 loadCreated();
             }
 
             document.getElementById('getCreatedCriteria').onclick = function () {
-                getAllCriteria();
+                // getAllCriteria();
+                useExisting();
+                console.log(critId);
+                // newCritId = critId;
+
+            }
+
+            document.getElementById('cohortSubmit').onclick = function () {
+                sendCohort();
             }
         }
 
@@ -251,7 +238,7 @@ window.onload = function () {
     function loadCreated() {
         loadTemplate('#created-page');
         loadFormButtons();
-        loadCriteriaData();
+        loadCriteriaData('criteriaList');
 
         document.getElementById('createdButton').onclick = function () {
             // do nothing
@@ -261,7 +248,6 @@ window.onload = function () {
         document.getElementById('activeButton').onclick = function () {
             loadActive();
         }
-        // collapsible();
     }
 
     // loads the login page
@@ -273,21 +259,66 @@ window.onload = function () {
     document.getElementById('loginBtn').onclick = function () {
         loadActive();
     }
-}
 
+    function useExisting() {
+        // hide cohort form and then show criteria clickable criteria options
+        document.getElementById('cohortFormContainer').style.display = 'none';
+        let t = document.querySelector('#showCriteria');
+        let clone = document.importNode(t.content, true);
+        document.body.appendChild(clone);
+        // loadCriteriaData('criteriaBox');
+
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
+                if (xmlhttp.status == 200) {
+
+                    let criteriaArray = JSON.parse(xmlhttp.responseText);
+
+                    for (let index = 0; index < criteriaArray.length; index++) {
+                        const criteria = criteriaArray[index];
+
+                        let btn = document.createElement("BUTTON");
+                        btn.classList.add("critOptn");
+                        btn.innerHTML = criteria.title;
+                        btn.value = criteria._id;
+                        btn.addEventListener('click', function (e) {
+                            if (e.target.classList.contains('critOptn')) {
+                                document.getElementById('cohortFormContainer').style.display = 'block';
+                                const container = document.body.lastElementChild;
+                                document.body.removeChild(container);
+                                critId = e.target.value;
+                                console.log("critId: " + critId);
+                            }
+                        }, false);
+                        document.getElementById("criteriaBox").append(btn);
+
+                    }
+
+                } else if (xmlhttp.status == 400) {
+                    alert('There was an error 400');
+                } else {
+                    alert('something else other than 200 was returned');
+                }
+            }
+        };
+        xmlhttp.open("GET", "/criteria", true);
+        xmlhttp.send();
+
+
+    }
+}
 document.addEventListener('click', function (e) {
     if (hasClass(e.target, 'addStatement')) {
         let parent = e.target.parentNode.nextSibling.nextSibling;
 
-        // Create statement-score pair for particular criterion.
-
-        // Get the last <li> element ("Milk") of <ul> with id="myList2"
-
+        // Clones statement-score pair for particular criterion.
         let statementTemplate = document.getElementById("statementClone");
-
-        // Copy the <li> element and its child nodes
         let statementCln = document.importNode(statementTemplate.content, true);
         parent.appendChild(statementCln);
+    } else if (hasClass(e.target, 'critOptn')) {
+        console.log(e.target.value);
+
 
     }
 }, false);
