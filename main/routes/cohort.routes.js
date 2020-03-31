@@ -7,6 +7,8 @@ module.exports = (app) => {
     // Retrieve all Cohorts
     app.get('/cohorts', cohorts.findAll);
 
+    app.get('/cohorts/active', cohorts.findActive);
+
     // Retrieve a single Cohort with productId
     app.get('/cohorts/:cohortId', cohorts.findOne);
 
