@@ -1,82 +1,6 @@
 var critId;
 let newCritId;
-
-// // loads the login page
-// let t = document.querySelector('#login-page');
-// let clone = document.importNode(t.content, true);
-// document.body.appendChild(clone);
-
-async function signOut() {
-    await gapi.auth2.getAuthInstance().signOut();
-    console.log('User signed out.');
-
-        const container = document.body.lastElementChild;
-        document.body.removeChild(container);
-        let t = document.querySelector('#loginScreen');
-        let clone = document.importNode(t.content, true);
-        document.body.appendChild(clone);
-    
-}
-
-async function callServer() {
-    const token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
-
-    const el = document.getElementById('server-response');
-    el.textContent = 'loading…';
-
-    const fetchOptions = {
-        credentials: 'same-origin',
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token
-        },
-    };
-    const response = await fetch('/api/hello', fetchOptions);
-    if (!response.ok) {
-        // handle the error
-        el.textContent = "Server error:\n" + response.status;
-        return;
-    }
-
-    // handle the response
-    const data = await response.text();
-    console.log('setting text content: ' + data);
-    el.textContent = data;
-}
-
-
-
-function onSignIn(googleUser) {
-    const profile = googleUser.getBasicProfile();
-    const el = document.getElementById('greeting');
-    el.textContent = '– Hello ' + profile.getName() + '!';
-
-    callServer();
-
-    const container = document.body.lastElementChild.previousElementSibling;
-    document.body.removeChild(container);
-    let t = document.querySelector('#active-page');
-    let clone = document.importNode(t.content, true);
-    document.body.appendChild(clone);
-
-    document.getElementById('createdButton').onclick = function () {
-        loadCreated();
-
-    }
-
-    document.getElementById('activeButton').onclick = function () {
-        // do nothing
-        console.log("did nothing in active screen");
-    }
-
-    document.getElementById('testButton').onclick = function () {
-        loadPeerReview();
-    }
-
-    loadActiveReview('activeList');
-    loadExpiredReview('expiredList');
-
-    console.log('active Loaded');
+window.onload = function () {
 
     function loadTemplate(newPage) {
         const container = document.body.lastElementChild;
@@ -85,6 +9,8 @@ function onSignIn(googleUser) {
         let clone = document.importNode(t.content, true);
         document.body.appendChild(clone);
     }
+
+    // ajax get request need to fix
 
     function sendCohort() {
         let xhttp = new XMLHttpRequest();
@@ -105,6 +31,26 @@ function onSignIn(googleUser) {
         xhttp.send(cohortObjectString);
 
         loadCreated();
+
+        // Creates random link 
+
+        /*  var links = [
+             "google.com",
+             "youtube.com",
+             "reddit.com",
+             "apple.com"
+         ]
+
+         var openSite = function () {
+             // get a random number between 0 and the number of links
+             var randIdx = Math.random() * links.length;
+             // round it, so it can be used as array index
+             randIdx = parseInt(randIdx, 10);
+             // construct the link to be opened
+             var link = 'http://' + links[randIdx];
+
+             return link;
+         }; */
 
     }
 
@@ -419,6 +365,16 @@ function onSignIn(googleUser) {
         // collapsible();
     }
 
+    // loads the login page
+    let t = document.querySelector('#login-page');
+    let clone = document.importNode(t.content, true);
+    document.body.appendChild(clone);
+
+    // when login button clicked takes you to the active page.
+    document.getElementById('loginBtn').onclick = function () {
+        loadActive();
+    }
+
     function useExisting() {
         // hide cohort form and then show criteria clickable criteria options
         document.getElementById('cohortFormContainer').style.display = 'none';
@@ -483,22 +439,3 @@ function onSignIn(googleUser) {
         return elem.classList.contains(className);
     }
 }
-
-
-
-// react to computer sleeps, get a new token; gapi doesn't do this reliably
-// adapted from http://stackoverflow.com/questions/4079115/can-any-desktop-browsers-detect-when-the-computer-resumes-from-sleep/4080174#4080174
-(function () {
-    const CHECK_DELAY = 2000;
-    let lastTime = Date.now();
-
-    setInterval(() => {
-        const currentTime = Date.now();
-        if (currentTime > (lastTime + CHECK_DELAY * 2)) { // ignore small delays
-            gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse();
-        }
-        lastTime = currentTime;
-    }, CHECK_DELAY);
-}());
-
-// check auth on get request
