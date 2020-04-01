@@ -21,12 +21,6 @@ app.get('/api/hello', (req, res) => {
   console.log('successful authenticated request by ' + req.user.emails[0].value);
 });
 
-app.get('*', (req, res) => {
-  
-    res.sendFile(__dirname+'/public/index.html');
-  });
-
-
 //Enable CORS for all HTTP methods
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -40,6 +34,14 @@ const config = require('./config.js');
 const mongoose = require('mongoose');
 require('./routes/cohort.routes.js')(app);  //Add route file here
 require('./routes/criteria.routes.js')(app);  //Add route file here
+
+app.get('*', (req, res) => {
+  
+    res.sendFile(__dirname+'/public/index.html');
+  });
+
+
+
 
 mongoose.Promise = global.Promise;
 
