@@ -1,21 +1,6 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const GoogleAuth = require('simple-google-openid');
-
-
-// you can put your client ID here
-app.use(GoogleAuth("1089772549494-l0ufh0njlpaa30ap8lnqtgp9jld63npj.apps.googleusercontent.com"));
- 
-// return 'Not authorized' if we don't have a user
-app.use('/api', GoogleAuth.guardMiddleware());
- 
-app.get('/api/hello', (req, res) => {
-  
-  res.send('Hello ' + (req.user.displayName || 'user without a name') + '!');
- 
-  console.log('successful authenticated request by ' + req.user.emails[0].value);
-});
 
 app.use(express.static(__dirname+'/public'));
 app.use(bodyParser.json());
@@ -46,6 +31,14 @@ mongoose.connect(config.url, {
     console.log('Could not connect to the database. Exiting now...', err);
     process.exit();
 });
+
+// app.use(express.json());
+
+// app.get('/', (req, res) => {
+// 	res.json({"message": "Welcome to ZeptoBook Product app"});
+// 	console.log("beep boop");
+	
+// });
 
 app.listen(config.serverport);
 console.log('Running on port 8000...');
