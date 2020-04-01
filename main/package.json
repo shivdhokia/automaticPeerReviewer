@@ -22,7 +22,8 @@
     "express": "^4.16.4",
     "gulp": "^4.0.0",
     "mongoose": "^5.8.11",
-    "node": "^13.8.0"
+    "node": "^13.8.0",
+    "simple-google-openid": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
