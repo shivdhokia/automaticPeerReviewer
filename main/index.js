@@ -6,7 +6,11 @@ const GoogleAuth = require('simple-google-openid');
 
 // you can put your client ID here
 app.use(GoogleAuth("1089772549494-l0ufh0njlpaa30ap8lnqtgp9jld63npj.apps.googleusercontent.com"));
- 
+
+app.use(express.static(__dirname+'/public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 // return 'Not authorized' if we don't have a user
 app.use('/api', GoogleAuth.guardMiddleware());
  
@@ -17,9 +21,11 @@ app.get('/api/hello', (req, res) => {
   console.log('successful authenticated request by ' + req.user.emails[0].value);
 });
 
-app.use(express.static(__dirname+'/public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.get('*', (req, res) => {
+  
+    res.sendFile(__dirname+'/public/index.html');
+  });
+
 
 //Enable CORS for all HTTP methods
 app.use(function(req, res, next) {
