@@ -100,7 +100,7 @@ function onSignIn(googleUser) {
         cohortObject.criteria = critId;
         cohortObject.startDate = document.getElementById('startDate').value;
         cohortObject.expiryDate = document.getElementById('expiryDate').value;
-        cohortObject.submissionLink = "test";
+        cohortObject.submissionLink = "http://localhost:8000/"+critId;
         let cohortObjectString = JSON.stringify(cohortObject);
         xhttp.send(cohortObjectString);
 
