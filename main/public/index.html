@@ -178,6 +178,11 @@
     </div>
   </template>
 
+  <template id="inputLabelTemplate">
+    <input type="radio" id="male" name="1" value="blah">
+    <label for="male">Male</label><br>
+  </template>
+
   <template id="testPeerReview">
     <div id="peerReviewContainer">
       <h1>Peer Review 1</h1>
@@ -286,13 +291,9 @@
 
   <div id="loginContainer">
     <h1>Automatic Peer Reviewer</h1>
-    <h1>Simple Google Auth test <span id="greeting"></span></h1>
     <div class='login-container'>
       <p>Press the button below to sign in:</p>
       <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-      <p><a href="#" onclick="signOut()">Sign out</a></p>
-      <p>Below is the response from the server API: <button onclick="callServer()"> refresh</button></p>
-      <pre id="server-response" style="border: 1px dashed black; min-width: 10em; min-height: 1em; padding: .5em;"></pre>
     </div>
   </div>
 
