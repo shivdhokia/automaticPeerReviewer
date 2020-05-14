@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const GoogleAuth = require('simple-google-openid');
 
 
-// you can put your client ID here
+// client ID here
 app.use(GoogleAuth("1089772549494-l0ufh0njlpaa30ap8lnqtgp9jld63npj.apps.googleusercontent.com"));
 
 app.use(express.static(__dirname+'/public'));
@@ -39,9 +39,6 @@ app.get('*', (req, res) => {
   
     res.sendFile(__dirname+'/public/index.html');
   });
-
-
-
 
 mongoose.Promise = global.Promise;
 

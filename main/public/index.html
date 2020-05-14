@@ -26,9 +26,6 @@
           <li>
             <a id="createdButton" href="#">Created</a>
           </li>
-          <li>
-            <a id="userReviewButton" href="#">User Reviews</a>
-          </li>
         </ul>
         <a href="#" onclick="signOut();">Sign out</a>
       </div>
@@ -65,9 +62,6 @@
           <li>
             <a id="createdButton" href="#">Created</a>
           </li>
-          <li>
-            <a id="userReviewButton" href="#">User Reviews</a>
-          </li>
         </ul>
       </div>
       <div id='created'>
@@ -91,9 +85,6 @@
           </li>
           <li>
             <a id="createdButton" href="#">Created</a>
-          </li>
-          <li>
-            <a id="userReviewButton" href="#">User Reviews</a>
           </li>
         </ul>
       </div>
@@ -144,6 +135,7 @@
 
   <template id="criteriaForm">
     <div id="criteriaFormContainer">
+      <h1>Create Criteria</h1>
       <div id="criteria_form">
         <form id="criteriaDataForm">
           <label>Title:</label>
@@ -242,9 +234,10 @@
         <legend>Criterion
         </legend>
         <label for="Criterion Title">Title</label>
+        <i class="material-icons removeCriterion addIcon">remove_circle</i>
         <input type="text" name="Criterion Title" class="critTitle">
         <fieldset>
-          <legend>Statments
+          <legend>Statements
             <i class="material-icons addIcon addStatement">add_circle</i>
           </legend>
 
@@ -261,10 +254,7 @@
 
   <template id="collapsibleTemplate">
     <button type="button" class="collapsible">text to change</button>
-    <div class="content"> put content here
-      <!-- <p>Lists of peers to review, their submissions and a button to the review for each one.</p> -->
-      <!-- <button id="testButton">Peer Test</button> -->
-    </div>
+    <div class="content"> put content here</div>
   </template>
 
   <template id="showCriteria">
@@ -278,13 +268,9 @@
 <template id="loginScreen">
   <div id="loginContainer">
     <h1>Automatic Peer Reviewer</h1>
-    <h1>Simple Google Auth test <span id="greeting"></span></h1>
     <div class='login-container'>
       <p>Press the button below to sign in:</p>
       <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-      <p><a href="#" onclick="signOut()">Sign out</a></p>
-      <p>Below is the response from the server API: <button onclick="callServer()"> refresh</button></p>
-      <pre id="server-response" style="border: 1px dashed black; min-width: 10em; min-height: 1em; padding: .5em;"></pre>
     </div>
   </div>
 </template>

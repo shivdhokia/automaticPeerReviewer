@@ -1,6 +1,6 @@
 const Cohort = require('../models/cohort.model.js');
 
-//Create new Product
+//Create new Cohort
 exports.create = (req, res) => {
     // Request validation
     if (!req.body) {
@@ -9,7 +9,7 @@ exports.create = (req, res) => {
         });
     }
 
-    // Create a Product
+    // Create a Cohort
     const cohort = new Cohort({
         title: req.body.title || "No cohort title",
         criteria: req.body.criteria,
@@ -18,13 +18,13 @@ exports.create = (req, res) => {
         expiryDate: req.body.expiryDate
     });
 
-    // Save Product in the database
+    // Save Cohort in the database
     cohort.save()
         .then(data => {
             res.send(data);
         }).catch(err => {
             res.status(500).send({
-                message: err.message || "Something wrong while creating the product."
+                message: err.message || "Something wrong while creating the cohort."
             });
         });
 };
@@ -65,7 +65,7 @@ exports.findExpired = (req, res) => {
             res.send(expiredCohorts);
         }).catch(err => {
             res.status(500).send({
-                message: err.message || "Something wrong while retrieving active cohorts."
+                message: err.message || "Something wrong while retrieving expired cohorts."
             });
         });
 };

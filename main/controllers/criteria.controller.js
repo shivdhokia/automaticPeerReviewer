@@ -16,7 +16,7 @@ exports.create = (req, res) => {
     });
 
     
-    // Save Product in the database
+    // Save Criteria in the database
     criteria.save()
     .then(data => {
         res.send(data);
@@ -27,7 +27,7 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all products from the database.
+// Retrieve all criteria from the database.
 exports.findAll = (req, res) => {
     Criteria.find()
     .then(criterias => {

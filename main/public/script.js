@@ -101,7 +101,6 @@ function onSignIn(googleUser) {
 
         }
 
-        // ajax post request need to fix
         function sendCriteria() {
             let xhttp = new XMLHttpRequest();
             xhttp.open("POST", "/criteria", true);
@@ -409,7 +408,6 @@ function onSignIn(googleUser) {
             loadCriteriaData('criteriaList');
 
 
-            // collapsible();
         }
 
         function useExisting() {
@@ -468,7 +466,12 @@ function onSignIn(googleUser) {
                 parent.appendChild(statementCln);
             }
 
+            if (hasClass(e.target, 'removeCriterion')) {
+                let parent = e.target.parentNode
+            }
+
         }, false);
+
 
         function hasClass(elem, className) {
             return elem.classList.contains(className);
@@ -533,21 +536,15 @@ function onSignIn(googleUser) {
     }
 }
 
-
-
-// react to computer sleeps, get a new token; gapi doesn't do this reliably
-// adapted from http://stackoverflow.com/questions/4079115/can-any-desktop-browsers-detect-when-the-computer-resumes-from-sleep/4080174#4080174
 (function () {
     const CHECK_DELAY = 2000;
     let lastTime = Date.now();
 
     setInterval(() => {
         const currentTime = Date.now();
-        if (currentTime > (lastTime + CHECK_DELAY * 2)) { // ignore small delays
+        if (currentTime > (lastTime + CHECK_DELAY * 2)) { 
             gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse();
         }
         lastTime = currentTime;
     }, CHECK_DELAY);
 }());
-
-// check auth on get request
